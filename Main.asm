@@ -21,13 +21,11 @@ push offset tekstPocz
 push 1 ;w konsoli
 call __write 
 add esp ,12
-
-push 80
+push 80;max d≥ugosc tekstu
 push offset bufor
 push 0
 call __read
 add esp,12
-
 mov ecx,eax
 mov ebx,0
 ptl:
@@ -71,16 +69,60 @@ jnz con8
 mov dl,9FH
 jmp next
 con8:
-cmp dl,0BEH;ø
+cmp dl,0A4H;•
 jnz con9
+mov dl,0A5H
+jmp next
+con9:
+cmp dl,8FH;∆
+jnz con10
+mov dl,0C6H
+jmp next
+con10:
+cmp dl,0A8H; 
+jnz con11
+mov dl,0CAH
+jmp next
+con11:
+cmp dl,9DH;£
+jnz con12
+mov dl,0A3H
+jmp next
+con12:
+cmp dl,0E3H;—
+jnz con13
+mov dl,0D1H
+jmp next
+con13:
+cmp dl,0E0H;”
+jnz con14
+mov dl,0D3H
+jmp next
+con14:
+cmp dl,97H;å
+jnz con15
+mov dl,8CH
+jmp next
+con15:
+cmp dl,8DH;è
+jnz con16
+mov dl,8FH
+jmp next
+con16:
+cmp dl,0BDH;Ø
+jnz con17
+mov dl,0AFH
+jmp next
+con17:
+cmp dl,0BEH;ø
+jnz con18
 mov dl,0BFH
 next:
 mov bufor[ebx],dl
-con9:
+con18:
 inc ebx
 dec ecx
 jnz ptl
-
  push 0 ; sta≥a MB_OK
 ; adres obszaru zawierajπcego tytu≥
  push OFFSET tytul_Win1250
